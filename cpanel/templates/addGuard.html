@@ -2,19 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Prisoner Form</title>
+    <title>Guard Form</title>
 
 </head>
 <body>
 
-    <form action="/postaddprisoner/" method="post">
+    <form action="/postaddguard/" method="post">
         {% csrf_token %}
         Name:
         <input type="text" name="name"><br><br>
         Guard ID:
         <input type="number" name="id"><br><br>
-        Block No.:
-        <input type="text" name="cellno"><br><br>
+        Block:
+        <input type="text" name="block"><br><br>
         Photo:
         <input type="file" id="img1" name="img1[]" accept="image/*" required>
         <input type="hidden" name="url1" id="url1">
@@ -65,6 +65,7 @@
         </select><br><br>
         Pincode:
         <input type="number" name="pincode"><br><br>   
+        <input type="submit" value="Submit" />
     </form>
 
 </body>

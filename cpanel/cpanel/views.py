@@ -2,14 +2,15 @@ from django.shortcuts import render
 from django.contrib import auth
 import pyrebase
 config={
-    'apiKey': "AIzaSyCLjLncnTczSOD7yJd-mgSZLPoLl8icUZw",
-    'authDomain': "cpanel-dee36.firebaseapp.com",
-    'databaseURL': "https://cpanel-dee36.firebaseio.com",
-    'projectId': "cpanel-dee36",
-    'storageBucket': "cpanel-dee36.appspot.com",
-    'messagingSenderId': "327800301185",
-    'appId': "1:327800301185:web:a88b58fd51d71552f80f80",
-    'measurementId': "G-S52R4GBPVW"
+    
+    'apiKey': "AIzaSyBRRbUKVoA5jbgEzkWJn_-0TYsIN7xpibo",
+    'authDomain': "prison-54644.firebaseapp.com",
+    'databaseURL': "https://prison-54644.firebaseio.com",
+    'projectId': "prison-54644",
+    'storageBucket': "prison-54644.appspot.com",
+    'messagingSenderId': "697584156491",
+   ' appId': "1:697584156491:web:a365e543b04d31ff89b2ce",
+    'measurementId': "G-YG2Q5TV4N2"
 }
 firebase=pyrebase.initialize_app(config)
 authe=firebase.auth()
@@ -157,3 +158,66 @@ def Guards(request):
 
 def addGuard(request):
     return render(request,"addGuard.html")
+
+def postaddguard(request):
+
+    import time
+    from datetime import datetime,timezone
+    import pytz
+
+    tz=pytz.timezone('Asia/Kolkata')
+    time_now=datetime.now(timezone.utc).astimezone(tz)
+    millis=int(time.mktime(time_now.timetuple()))
+    name=request.POST.get('name')
+    guardID=request.POST.get('id')
+    block=request.POST.get('block')
+    photo=request.POST.get('img1')
+    gender=request.POST.get('gender')
+    address=request.POST.get('address')
+    state=request.POST.get('state')
+    pincode=request.POST.get('pincode')
+    url1=request.POST.get('url1')
+    idtoken=request.session['uid']
+    a=authe.get_account_info(idtoken)
+    a=a['users']
+    a=a[0]
+    a=a['localId']
+    data = {
+        "Name": name,
+        "guardID": guardID,
+        "block": block,
+        "photo": photo,
+        "gender": gender,
+        "address": address,
+        "state": state,
+        "pincode": pincode,
+        "photo": url1
+        
+    }
+    database.child('users').child(a).child('info').child(millis).set(data)
+    name=database.child('users').child(a).child('details').child('name').get().val()
+
+    return render(request,"guards.html", {'e':name})
+
+def viewGuards(request):
+    return render(request,"viewGuards.html")
+
+def post_check2(request):
+    import datetime
+    time=request.GET.get('z')
+    idtoken = request.session['uid']
+    a = authe.get_account_info(idtoken)
+    a = a['users']
+    a = a[0]
+    a = a['localId']
+    name = database.child('users').child(a).child('info').child(time).child('name').get().val()
+    print(name)
+    id = database.child('users').child(a).child('info').child(time).child('guardID').get().val()
+    block = database.child('users').child(a).child('info').child(time).child('block').get().val()
+    photo = database.child('users').child(a).child('info').child(time).child('photo').get().val()
+    gender = database.child('users').child(a).child('info').child(time).child('gender').get().val()
+    address = database.child('users').child(a).child('info').child(time).child('address').get().val()
+    state = database.child('users').child(a).child('info').child(time).child('state').get().val()
+    pincode = database.child('users').child(a).child('info').child(time).child('pincode').get().val()
+
+    return render(request,'post_check2.html',{'name':name,'id':id,'block':block,'photo':photo,'gender':gender,'address':address,'state':state,'pincode':pincode})
