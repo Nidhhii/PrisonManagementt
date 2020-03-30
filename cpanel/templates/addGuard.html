@@ -9,22 +9,21 @@
 
     <form action="/postaddprisoner/" method="post">
         {% csrf_token %}
-        Prisoner Name:
+        Name:
         <input type="text" name="name"><br><br>
-        Prisoner ID:
+        Guard ID:
         <input type="number" name="id"><br><br>
-        Cell No.:
+        Block No.:
         <input type="text" name="cellno"><br><br>
         Photo:
         <input type="file" id="img1" name="img1[]" accept="image/*" required>
         <input type="hidden" name="url1" id="url1">
         <button type="button" onclick="uploadimage1()">Upload</button>
         <br><br>
-        Fingerprint:
-        <input type="file" id="img2" name="img2" accept="image/*" required>
-        <input type="hidden" name="url2" id="url2">
-        <button type="button" onclick="uploadimage2()">Upload</button>
-        <br><br>
+        Gender:
+        <input type="text" name="gender"><br><br>
+        Address:
+        <br><textarea rows="10" cols="100" name="address">Enter details</textarea><br><br>
         State:
         <select name="state">
             <option value="Andhra Pradesh">Andhra Pradesh</option>
@@ -65,14 +64,7 @@
             <option value="West Bengal">West Bengal</option>
         </select><br><br>
         Pincode:
-        <input type="number" name="pincode"><br><br>
-        Crime Details:
-        <br><textarea rows="10" cols="100" name="details">Enter details</textarea><br><br>
-        Arrival:
-        <input type="datetime-local" name="arrival"><br><br>
-        Punishment Duration:
-        <input type="text" name="duration"><br><br>
-        <input type="submit" value="Submit" />
+        <input type="number" name="pincode"><br><br>   
     </form>
 
 </body>
@@ -108,26 +100,7 @@
             });
 
     }
-    function uploadimage2() {
-        var storage = firebase.storage();
-        var file=document.getElementById("img2").files[0];
-        var storageref=storage.ref();
-        var thisref1=storageref.child(file.name).put(file);
-        thisref1.on('state_changed',function(snapshot)
-        {
-            console.log("File uploaded succesfully.")
-        },
-            function(error) {
-
-            },
-            function() {
-            var downloadURL=thisref1.snapshot.downloadURL;
-            console.log("Got URL");
-            document.getElementById("url2").value=downloadURL;
-            alert("File uploaded succesfully")
-            });
-
-    }
+    
 
 </script>
 </html>

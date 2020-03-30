@@ -151,3 +151,9 @@ def post_check(request):
     duration = database.child('users').child(a).child('info').child(time).child('duration').get().val()
 
     return render(request,'post_check.html',{'name':name,'id':id,'cellNo':cellNo,'photo':photo,'fingerprint':fingerprint,'state':state,'pincode':pincode,'crimedetails':crimedetails,'arrival':arrival,'duration':duration})
+
+def Guards(request):
+    return render(request,"guards.html")
+
+def addGuard(request):
+    return render(request,"addGuard.html")

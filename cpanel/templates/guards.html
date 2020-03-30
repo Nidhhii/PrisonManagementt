@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Guards</title>
+    <style>
+          div{
+              position: fixed;
+              right: 10px;
+              top: 5px;
+          }
+      </style>
+</head>
+<body>
+<div class="container">
+      <button type="button" onclick="location.href='{% url 'log' %}'">
+          Logout
+      </button>
+</div>
+    <button type="button" onclick="location.href='{% url 'addg' %}'">Add Guard</button>
+    <button type="button" onclick="location.href='{% url 'viewg' %}'">View Guards</button>
+</body>
+</html>
