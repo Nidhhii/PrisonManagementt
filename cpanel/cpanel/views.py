@@ -75,7 +75,7 @@ def postaddprisoner(request):
     arrival=request.POST.get('arrival')
     duration=request.POST.get('duration')
     url1=request.POST.get('url1')
-    url2 = request.POST.get('url2')
+    url2=request.POST.get('url2')
     idtoken=request.session['uid']
     a=authe.get_account_info(idtoken)
     a=a['users']
@@ -92,8 +92,9 @@ def postaddprisoner(request):
         "crimedetails": crimedetails,
         "arrival": arrival,
         "duration": duration,
-        "Photo": url1,
-        "Fingerprint":url2
+        "photo": url1,
+        "fingerprint":url2
+        
     }
     database.child('users').child(a).child('info').child(millis).set(data)
     name=database.child('users').child(a).child('details').child('name').get().val()
@@ -148,4 +149,5 @@ def post_check(request):
     crimedetails = database.child('users').child(a).child('info').child(time).child('crimedetails').get().val()
     arrival = database.child('users').child(a).child('info').child(time).child('arrival').get().val()
     duration = database.child('users').child(a).child('info').child(time).child('duration').get().val()
+
     return render(request,'post_check.html',{'name':name,'id':id,'cellNo':cellNo,'photo':photo,'fingerprint':fingerprint,'state':state,'pincode':pincode,'crimedetails':crimedetails,'arrival':arrival,'duration':duration})

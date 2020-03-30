@@ -3,8 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Prisoners</title>
+    <style>
+          div{
+              position: fixed;
+              right: 10px;
+              top: 5px;
+          }
+      </style>
 </head>
 <body>
+<div class="container">
+      <button type="button" onclick="location.href='{% url 'log' %}'">
+          Logout
+      </button>
+</div>
     <button type="button" onclick="location.href='{% url 'add' %}'">Add Prisoner</button>
     <button type="button" onclick="location.href='{% url 'viewp' %}'">View Prisoners</button>
 </body>
