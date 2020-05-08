@@ -211,7 +211,6 @@ def post_check2(request):
     a = a[0]
     a = a['localId']
     name = database.child('users').child(a).child('info').child(time).child('name').get().val()
-    print(name)
     id = database.child('users').child(a).child('info').child(time).child('guardID').get().val()
     block = database.child('users').child(a).child('info').child(time).child('block').get().val()
     photo = database.child('users').child(a).child('info').child(time).child('photo').get().val()
