@@ -16,8 +16,8 @@
         Block:
         <input type="text" name="block"><br><br>
         Photo:
-        <input type="file" id="img1" name="img1[]" accept="image/*" required>
-        <input type="hidden" name="url1" id="url1">
+        <input type="file" id="img3" name="img3[]" accept="image/*" required>
+        <input type="hidden" name="url3" id="url3">
         <button type="button" onclick="uploadimage1()">Upload</button>
         <br><br>
         Gender:
@@ -72,18 +72,18 @@
 <script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js"></script>
 <script>
     var config = {
-        'apiKey': "AIzaSyBRRbUKVoA5jbgEzkWJn_-0TYsIN7xpibo",
-        'authDomain': "prison-54644.firebaseapp.com",
-        'databaseURL': "https://prison-54644.firebaseio.com",
-        'projectId': "prison-54644",
-        'storageBucket': "prison-54644.appspot.com",
-        'messagingSenderId': "697584156491"
+    'apiKey': "AIzaSyCLjLncnTczSOD7yJd-mgSZLPoLl8icUZw",
+    'authDomain': "cpanel-dee36.firebaseapp.com",
+    'databaseURL': "https://cpanel-dee36.firebaseio.com",
+    'projectId': "cpanel-dee36",
+    'storageBucket': "cpanel-dee36.appspot.com",
+    'messagingSenderId': "327800301185",
     };
     firebase.initializeApp(config);
 
     function uploadimage1() {
         var storage = firebase.storage();
-        var file=document.getElementById("img1").files[0];
+        var file=document.getElementById("img3").files[0];
         var storageref=storage.ref();
         var thisref1=storageref.child(file.name).put(file);
         thisref1.on('state_changed',function(snapshot)
@@ -96,7 +96,7 @@
             function() {
             var downloadURL=thisref1.snapshot.downloadURL;
             console.log("Got URL");
-            document.getElementById("url1").value=downloadURL;
+            document.getElementById("url3").value=downloadURL;
             alert("File uploaded succesfully")
             });
 
