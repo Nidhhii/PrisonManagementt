@@ -3,14 +3,14 @@ from django.contrib import auth
 import pyrebase
 config={
     
-    'apiKey': "AIzaSyBRRbUKVoA5jbgEzkWJn_-0TYsIN7xpibo",
-    'authDomain': "prison-54644.firebaseapp.com",
-    'databaseURL': "https://prison-54644.firebaseio.com",
-    'projectId': "prison-54644",
-    'storageBucket': "prison-54644.appspot.com",
-    'messagingSenderId': "697584156491",
-   ' appId': "1:697584156491:web:a365e543b04d31ff89b2ce",
-    'measurementId': "G-YG2Q5TV4N2"
+    'apiKey': "AIzaSyAXWZfV-lOkou1y-sLKTqilJBcMapF_UKE",
+    'authDomain': "prison-management.firebaseapp.com",
+    'databaseURL': "https://prison-management.firebaseio.com",
+    'projectId': "prison-management",
+    'storageBucket': "prison-management.appspot.com",
+    'messagingSenderId': "417789910492",
+    'appId': "1:417789910492:web:07851b56d8d6a3fa190319",
+    'measurementId': "G-9C9RT4Z52C"
 }
 firebase=pyrebase.initialize_app(config)
 authe=firebase.auth()
@@ -97,10 +97,9 @@ def postaddprisoner(request):
         "fingerprint":url2
         
     }
-    database.child('users').child(a).child('info').child(millis).set(data)
-    name=database.child('users').child(a).child('details').child('name').get().val()
+    database.child('users').child(a).child('info').child('prisoners').child(millis).set(data)
 
-    return render(request,"prisoners.html", {'e':name})
+    return render(request,"prisoners.html")
 
 def viewPrisoner(request):
     import datetime
@@ -109,7 +108,7 @@ def viewPrisoner(request):
     a = a['users']
     a = a[0]
     a = a['localId']
-    timestamps=database.child("users").child(a).child('info').shallow().get().val()
+    timestamps=database.child("users").child(a).child('info').child('prisoners').shallow().get().val()
 
     lis_time=[]
     for i in timestamps:
@@ -118,7 +117,7 @@ def viewPrisoner(request):
     name=[]
 
     for i in lis_time:
-        nam=database.child('users').child(a).child('info').child(i).child('prisonerName').get().val()
+        nam=database.child('users').child(a).child('info').child('prisoners').child(i).child('prisonerName').get().val()
         name.append(nam)
     date=[]
     for i in lis_time:
@@ -139,17 +138,17 @@ def post_check(request):
     a = a['users']
     a = a[0]
     a = a['localId']
-    name = database.child('users').child(a).child('info').child(time).child('prisonerName').get().val()
+    name = database.child('users').child(a).child('info').child('prisoners').child(time).child('prisonerName').get().val()
     print(name)
-    id = database.child('users').child(a).child('info').child(time).child('prisonerID').get().val()
-    cellNo = database.child('users').child(a).child('info').child(time).child('cellNo').get().val()
-    photo = database.child('users').child(a).child('info').child(time).child('photo').get().val()
-    fingerprint = database.child('users').child(a).child('info').child(time).child('fingerprint').get().val()
-    state = database.child('users').child(a).child('info').child(time).child('state').get().val()
-    pincode = database.child('users').child(a).child('info').child(time).child('pincode').get().val()
-    crimedetails = database.child('users').child(a).child('info').child(time).child('crimedetails').get().val()
-    arrival = database.child('users').child(a).child('info').child(time).child('arrival').get().val()
-    duration = database.child('users').child(a).child('info').child(time).child('duration').get().val()
+    id = database.child('users').child(a).child('info').child('prisoners').child(time).child('prisonerID').get().val()
+    cellNo = database.child('users').child(a).child('info').child('prisoners').child(time).child('cellNo').get().val()
+    photo = database.child('users').child(a).child('info').child('prisoners').child(time).child('photo').get().val()
+    fingerprint = database.child('users').child(a).child('info').child('prisoners').child(time).child('fingerprint').get().val()
+    state = database.child('users').child(a).child('info').child('prisoners').child(time).child('state').get().val()
+    pincode = database.child('users').child(a).child('info').child('prisoners').child(time).child('pincode').get().val()
+    crimedetails = database.child('users').child(a).child('info').child('prisoners').child(time).child('crimedetails').get().val()
+    arrival = database.child('users').child(a).child('info').child('prisoners').child(time).child('arrival').get().val()
+    duration = database.child('users').child(a).child('info').child('prisoners').child(time).child('duration').get().val()
 
     return render(request,'post_check.html',{'name':name,'id':id,'cellNo':cellNo,'photo':photo,'fingerprint':fingerprint,'state':state,'pincode':pincode,'crimedetails':crimedetails,'arrival':arrival,'duration':duration})
 
@@ -176,7 +175,7 @@ def postaddguard(request):
     address=request.POST.get('address')
     state=request.POST.get('state')
     pincode=request.POST.get('pincode')
-    url1=request.POST.get('url1')
+    url3=request.POST.get('url3')
     idtoken=request.session['uid']
     a=authe.get_account_info(idtoken)
     a=a['users']
@@ -191,16 +190,42 @@ def postaddguard(request):
         "address": address,
         "state": state,
         "pincode": pincode,
-        "photo": url1
+        "photo": url3
         
     }
-    database.child('users').child(a).child('info').child(millis).set(data)
-    name=database.child('users').child(a).child('details').child('name').get().val()
+    database.child('users').child(a).child('info').child('guards').child(millis).set(data)
+   
 
-    return render(request,"guards.html", {'e':name})
+    return render(request,"guards.html", )
 
 def viewGuards(request):
-    return render(request,"viewGuards.html")
+    import datetime
+    idtoken = request.session['uid']
+    a = authe.get_account_info(idtoken)
+    a = a['users']
+    a = a[0]
+    a = a['localId']
+    timestamps=database.child("users").child(a).child('info').child('guards').shallow().get().val()
+
+    lis_time=[]
+    for i in timestamps:
+        lis_time.append(i)
+    lis_time.sort(reverse=True)
+    name=[]
+
+    for i in lis_time:
+        nam=database.child('users').child(a).child('info').child('guards').child(i).child('Name').get().val()
+        print(nam)
+        name.append(nam)
+    date=[]
+    for i in lis_time:
+        i=float(i)
+        dat=datetime.datetime.fromtimestamp(i).strftime('%H:%M %d-%m-%y')
+        date.append(dat)
+
+    comb_lis=zip(lis_time,date,name)
+
+    return render(request,"viewGuards.html",{'comb_lis':comb_lis})
 
 def post_check2(request):
     import datetime
@@ -210,14 +235,14 @@ def post_check2(request):
     a = a['users']
     a = a[0]
     a = a['localId']
-    name = database.child('users').child(a).child('info').child(time).child('name').get().val()
+    name = database.child('users').child(a).child('info').child('guards').child(time).child('Name').get().val()
     print(name)
-    id = database.child('users').child(a).child('info').child(time).child('guardID').get().val()
-    block = database.child('users').child(a).child('info').child(time).child('block').get().val()
-    photo = database.child('users').child(a).child('info').child(time).child('photo').get().val()
-    gender = database.child('users').child(a).child('info').child(time).child('gender').get().val()
-    address = database.child('users').child(a).child('info').child(time).child('address').get().val()
-    state = database.child('users').child(a).child('info').child(time).child('state').get().val()
-    pincode = database.child('users').child(a).child('info').child(time).child('pincode').get().val()
+    id = database.child('users').child(a).child('info').child('guards').child(time).child('guardID').get().val()
+    block = database.child('users').child(a).child('info').child('guards').child(time).child('block').get().val()
+    photo = database.child('users').child(a).child('info').child('guards').child(time).child('photo').get().val()
+    gender = database.child('users').child(a).child('info').child('guards').child(time).child('gender').get().val()
+    address = database.child('users').child(a).child('info').child('guards').child(time).child('address').get().val()
+    state = database.child('users').child(a).child('info').child('guards').child(time).child('state').get().val()
+    pincode = database.child('users').child(a).child('info').child('guards').child(time).child('pincode').get().val()
 
     return render(request,'post_check2.html',{'name':name,'id':id,'block':block,'photo':photo,'gender':gender,'address':address,'state':state,'pincode':pincode})
