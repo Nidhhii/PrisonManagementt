@@ -30,8 +30,10 @@ urlpatterns = [
     url(r'^postaddprisoner/',views.postaddprisoner,name="postadd"),
     url(r'^post_check/',views.post_check,name="pos_check"),
     url(r'addGuard/',views.addGuard,name="addg"),
-    url(r'vewGuard/',views.viewGuards,name="viewg"),
+    url(r'viewGuard/',views.viewGuards,name="viewg"),
     url(r'guards/',views.Guards,name="guards"),
     url(r'post_check2/',views.post_check2,name="post_check2"),
-    url(r'postaddguard/',views.postaddguard,name="postaddg")
+    url(r'postaddguard/',views.postaddguard,name="postaddg"),
+    url(r'postaddvisitor/',views.postaddvisitor,name="postaddv"),
+    url(r'viewVisitors/',views.viewVisitors,name="visitors")
 ]
