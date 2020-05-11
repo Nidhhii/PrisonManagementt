@@ -10,14 +10,14 @@ from django.http import HttpResponse, HttpResponseRedirect
 import pyrebase
 config={
     
-    'apiKey': "AIzaSyBRRbUKVoA5jbgEzkWJn_-0TYsIN7xpibo",
-    'authDomain': "prison-54644.firebaseapp.com",
-    'databaseURL': "https://prison-54644.firebaseio.com",
-    'projectId': "prison-54644",
-    'storageBucket': "prison-54644.appspot.com",
-    'messagingSenderId': "697584156491",
-   ' appId': "1:697584156491:web:a365e543b04d31ff89b2ce",
-    'measurementId': "G-YG2Q5TV4N2"
+    'apiKey': "AIzaSyAXWZfV-lOkou1y-sLKTqilJBcMapF_UKE",
+    'authDomain': "prison-management.firebaseapp.com",
+    'databaseURL': "https://prison-management.firebaseio.com",
+    'projectId': "prison-management",
+    'storageBucket': "prison-management.appspot.com",
+    'messagingSenderId': "417789910492",
+    'appId': "1:417789910492:web:07851b56d8d6a3fa190319",
+    'measurementId': "G-9C9RT4Z52C"
 }
 firebase=pyrebase.initialize_app(config)
 authe=firebase.auth()
@@ -251,9 +251,7 @@ def post_check2(request):
     address = database.child('users').child(a).child('info').child('guards').child(time).child('address').get().val()
     state = database.child('users').child(a).child('info').child('guards').child(time).child('state').get().val()
     pincode = database.child('users').child(a).child('info').child('guards').child(time).child('pincode').get().val()
-
     return render(request,'post_check2.html',{'name':name,'id':id,'block':block,'photo':photo,'gender':gender,'address':address,'state':state,'pincode':pincode})
-
 
 def postaddvisitor(request):
     import time
