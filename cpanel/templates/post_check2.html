@@ -1,95 +1,239 @@
+
+{% if message %}
+<script>
+    alert('{{message}}');
+</script>
+{% endif %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Guards</title>
-    <style>
-        div{
-            position: fixed;
-            right: 10px;
-            top: 5px;
-        }
-        .form-style-9{
-  max-width: 450px;
-  background: #FAFAFA;
-  padding: 30px;
-  margin: 50px auto;
-  box-shadow: 1px 1px 25px rgba(0, 0, 0, 0.35);
-  border-radius: 10px;
-  border: 6px solid #305A72;
-}
-.form-style-9 ul{
-  padding:0;
-  margin:0;
-  list-style:none;
-}
-.form-style-9 ul li{
-  display: block;
-  margin-bottom: 10px;
-  min-height: 35px;
-}
-.form-style-9 ul li  .field-style{
-  box-sizing: border-box; 
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box; 
-  padding: 8px;
-  outline: none;
-  border: 1px solid #B0CFE0;
-  -webkit-transition: all 0.30s ease-in-out;
-  -moz-transition: all 0.30s ease-in-out;
-  -ms-transition: all 0.30s ease-in-out;
-  -o-transition: all 0.30s ease-in-out;
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-}.form-style-9 ul li  .field-style:focus{
-  box-shadow: 0 0 5px #B0CFE0;
-  border:1px solid #B0CFE0;
-}
-.form-style-9 ul li .field-split{
-  width: 49%;
-}
-.form-style-9 ul li .field-full{
-  width: 100%;
-}
-.form-style-9 ul li input.align-left{
-  float:left;
-}
-.form-style-9 ul li input.align-right{
-  float:right;
-}
-.form-style-9 ul li textarea{
-  width: 100%;
-  height: 100px;
-}
-.form-style-9 ul li input[type="button"], 
-.form-style-9 ul li input[type="submit"] {
-  -moz-box-shadow: inset 0px 1px 0px 0px #3985B1;
-  -webkit-box-shadow: inset 0px 1px 0px 0px #3985B1;
-  box-shadow: inset 0px 1px 0px 0px #3985B1;
-  background-color: #216288;
-  border: 1px solid #17445E;
-  display: inline-block;
-  cursor: pointer;
-  color: #FFFFFF;
-  padding: 8px 18px;
-  text-decoration: none;
-  font: 12px Arial, Helvetica, sans-serif;
-}
-.form-style-9 ul li input[type="button"]:hover, 
-.form-style-9 ul li input[type="submit"]:hover {
-  background: linear-gradient(to bottom, #2D77A2 5%, #337DA8 100%);
-  background-color: #28739E;
-}
+  <title>Contact - Moderna Bootstrap Template</title>
+  <meta content="" name="descriptison">
+  <meta content="" name="keywords">
 
-    </style>
+  <!-- Favicons -->
+  <link href="{% static 'assets/img/favicon.png' %}" rel="icon">
+  <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,700,700i&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/animate.css/animate.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/icofont/icofont.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/venobox/venobox.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/owl.carousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: Moderna - v2.0.1
+  * Template URL: https://bootstrapmade.com/free-bootstrap-template-corporate-moderna/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+  <style>
+    table, th, td {
+      border: 3px solid black;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 5px;
+      text-align: left;    
+    }
+  </style>
 </head>
-<body>
-Name: {{name}}<br>
-Guard ID: {{id}}<br>
-Cell No.: {{cellNo}}<br>
-Photo: {{photo}}<br>
-Address: {{address}}<br>
-State: {{state}}<br>
-Pincode: {{pincode}}<br>
 
-</body>
-</html>
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top ">
+    <div class="container">
+
+      <div class="logo float-left">
+        <h1 class="text-light"><a href="{% url 'index' %}"><span>PRISON</span></a></h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+      </div>
+
+      <nav class="nav-menu float-right d-none d-lg-block">
+        <ul>
+          <li><a href="{% url 'prisoners' %}">Prisoners</a></li>
+          <li class="active"><a href="{% url 'guards' %}">Guards</a></li>
+          <li><a href="{% url 'visitors' %}">Visitor List</a></li>
+          <li><a href="{% url 'index' %}">Sign Out</a></li>
+        </ul>
+      </nav><!-- .nav-menu -->
+
+    </div>
+  </header><!-- End Header -->
+
+  <main id="main">
+
+    <!-- ======= Contact Section ======= -->
+    <section class="breadcrumbs">
+        <div class="container">
+  
+          <div class="d-flex justify-content-between align-items-center">
+            <h2>View Guard</h2>
+            <ol>
+              <li><a href="{% url 'index' %}">Home</a></li>
+              <li>View Guard</li>
+            </ol>
+          </div>
+  
+        </div>
+      </section><!-- End Contact Section -->
+  
+      <!-- ======= Contact Section ======= -->
+      <section class="contact" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
+        <h3 style="justify-content: center; text-align: center;">Guard Info</h3>
+        <div class="container">
+  
+          <div class="row" style="justify-content: center; align-content: center;">
+  
+              <form action="/postaddvisitor/" method="post" role="form" class="php-email-form" enctype="multipart/form-data">
+                <div class="form-group">
+                  Name: {{name}}<br>
+                </div>
+                <div class="form-group">
+                  Guard ID: {{id}}<br>
+                </div>
+                <div class="form-group">
+                  Cell No.: {{cellNo}}<br>
+                </div>
+                <div class="form-group">
+                  Photo: <a href={{photo}}>Click to view photo</a><br>
+                </div>
+                <div class="form-group">
+                  Address: {{address}}<br>
+                </div>
+                <div class="form-group">               
+                  State: {{state}}<br>
+                </div>
+                <div class="form-group">
+                  Pincode: {{pincode}}<br>
+                </div>
+                
+              </form>
+  
+          </div>
+  
+        </div>
+      </section><!-- End Contact Section -->
+  
+    <!-- ======= Footer ======= -->
+    <footer id="footer" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
+  
+      <div class="footer-newsletter">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-6">
+              <h4>Our Newsletter</h4>
+              <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
+            </div>
+            <div class="col-lg-6">
+              <form action="" method="post">
+                <input type="email" name="email"><input type="submit" value="Subscribe">
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="footer-top">
+        <div class="container">
+          <div class="row">
+  
+            <div class="col-lg-3 col-md-6 footer-links">
+              <h4>Useful Links</h4>
+              <ul>
+                <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
+              </ul>
+            </div>
+  
+            <div class="col-lg-3 col-md-6 footer-links">
+              <h4>Our Services</h4>
+              <ul>
+                <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
+              </ul>
+            </div>
+  
+            <div class="col-lg-3 col-md-6 footer-contact">
+              <h4>Contact Us</h4>
+              <p>
+                A108 Adam Street <br>
+                New York, NY 535022<br>
+                United States <br><br>
+                <strong>Phone:</strong> +1 5589 55488 55<br>
+                <strong>Email:</strong> info@example.com<br>
+              </p>
+  
+            </div>
+  
+            <div class="col-lg-3 col-md-6 footer-info">
+              <h3>About Moderna</h3>
+              <p>Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada terra videa magna derita valies darta donna mare fermentum iaculis eu non diam phasellus.</p>
+              <div class="social-links mt-3">
+                <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+                <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+                <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+                <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+              </div>
+            </div>
+  
+          </div>
+        </div>
+      </div>
+  
+      <div class="container">
+        <div class="copyright">
+          &copy; Copyright <strong><span>Moderna</span></strong>. All Rights Reserved
+        </div>
+        <div class="credits">
+          <!-- All the links in the footer should remain intact. -->
+          <!-- You can delete the links only if you purchased the pro version. -->
+          <!-- Licensing information: https://bootstrapmade.com/license/ -->
+          <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/free-bootstrap-template-corporate-moderna/ -->
+          Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        </div>
+      </div>
+    </footer><!-- End Footer -->
+  
+    <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+  
+    <!-- Vendor JS Files -->
+    <script src="{% static 'assets/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/jquery.easing/jquery.easing.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
+    <script src="{% static 'assets/vendor/venobox/venobox.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/waypoints/jquery.waypoints.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/counterup/counterup.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/owl.carousel/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
+    
+    <!-- Template Main JS File -->
+    <script src="{% static 'assets/js/main.js' %}"></script>
+  
+  </body>
+  
+  </html>

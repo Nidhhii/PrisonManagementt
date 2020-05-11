@@ -70,6 +70,7 @@ def postaddprisoner(request):
     import time
     from datetime import datetime,timezone
     import pytz
+    print("hello")
 
     tz=pytz.timezone('Asia/Kolkata')
     time_now=datetime.now(timezone.utc).astimezone(tz)
@@ -107,6 +108,8 @@ def postaddprisoner(request):
         
     }
     database.child('users').child(a).child('info').child('prisoners').child(millis).set(data)
+
+    print("hi")
 
     return render(request,"prisoners.html")
 

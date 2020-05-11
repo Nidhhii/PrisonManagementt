@@ -92,7 +92,7 @@
   
           <div class="row" style="justify-content: center; align-content: center;">
   
-              <form action="/postsign/" method="post" class="php-email-form" >
+              <form action="/postsign/" method="post">
                 {% csrf_token %}
                 <div class="form-group">
                     <input type="email" class="form-control" name="email" id="email" placeholder="Email Address" required pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" title="Email should be of the form abc@xyz.com" />
