@@ -29,6 +29,7 @@ def signIn(request):
 def postsign(request):
     email=request.POST.get('email')
     passw=request.POST.get("pass")
+    print("hiii")
     try:
         user=authe.sign_in_with_email_and_password(email,passw)
     except:
