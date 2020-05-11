@@ -29,15 +29,16 @@ def signIn(request):
 def postsign(request):
     email=request.POST.get('email')
     passw=request.POST.get("pass")
-    print("hiii")
+    print(email,passw)
     try:
         user=authe.sign_in_with_email_and_password(email,passw)
     except:
         message="Invalid email or password"
         return render(request, "signIn.html",{"message":message})
+    print("hello")
     session_id=user['idToken']
     request.session['uid']=str(session_id)
-    return render(request,"welcome.html",{"e":email})
+    return render(request,"welcome.html")
 
 def logout(request):
     auth.logout(request)

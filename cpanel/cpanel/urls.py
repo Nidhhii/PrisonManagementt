@@ -33,7 +33,7 @@ urlpatterns = [
     url(r'^postdesign/',views.postdesign, name="postdesign"),
     url(r'^design_partner/',views.design_partner, name="design_partner"),
     url(r'^signIn/',views.signIn, name="signIn"),
-    url(r'^postsign/',views.postsign),
+    url(r'^postsign/',views.postsign, name="postsign"),
     url(r'^logout/',views.logout,name="log"),
     url(r'^signUp/',views.signUp, name="signUp"),
     url(r'^postsignUp',views.postsignUp, name="postsignUp"),
