@@ -1,86 +1,247 @@
+
+{% if message %}
+<script>
+    alert('{{message}}');
+</script>
+{% endif %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>View Visitors</title>
-    <style>
-      * {
-        box-sizing: border-box;
-      }
-      
-      #myInput {
-        background-image: url('/css/searchicon.png');
-        background-position: 10px 10px;
-        background-repeat: no-repeat;
-        width: 100%;
-        font-size: 16px;
-        padding: 12px 20px 12px 40px;
-        border: 1px solid #ddd;
-        margin-bottom: 12px;
-      }
-      
-      #myTable {
-        border-collapse: collapse;
-        width: 100%;
-        border: 1px solid #ddd;
-        font-size: 18px;
-      }
-      
-      #myTable th, #myTable td {
-        text-align: left;
-        padding: 12px;
-      }
-      
-      #myTable tr {
-        border-bottom: 1px solid #ddd;
-      }
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-      #myTable tr:hover {
-        background-color: #8dc8eb;
+  <title>Prison Management</title>
+  <meta content="" name="descriptison">
+  <meta content="" name="keywords">
 
-      }
-      
-      #myTable tr.header{
-        background-color: #2088c4;
-      }
-      </style>
+  <!-- Favicons -->
+  <link href="{% static 'assets/img/favicon.png' %}" rel="icon">
+  <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,700,700i&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/animate.css/animate.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/icofont/icofont.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/venobox/venobox.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/owl.carousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: Moderna - v2.0.1
+  * Template URL: https://bootstrapmade.com/free-bootstrap-template-corporate-moderna/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+  <style>
+    table, th, td {
+      border: 3px solid black;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 5px;
+      text-align: left;    
+    }
+
+    .search{
+      width: 750px;
+      box-sizing: border-box;
+      border: 2px solid rgb(0, 0, 0);
+      border-radius: 4px;
+      font-size: 16px;
+      background-color: rgb(198, 228, 240);
+      background-image: url('searchicon.png');
+      background-position: 10px 10px; 
+      background-repeat: no-repeat;
+      padding: 12px 20px 12px 40px;
+      -webkit-transition: width 0.4s ease-in-out;
+      transition: width 0.4s ease-in-out;
+    }
+  </style>
 </head>
-<body>
-  <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
-    <table id="myTable">
-        <tr class="header">
-          <th style="width:60%;">Name</th>
-          <th style="width:40%;">Date</th>
-        </tr>
-        {% for time,dat,nam in comb_lis%}
-        <tr>
-        <td><a href="/post_check3/?z={{time}}" >{{nam}}</a></td>
-        <td>{{dat}}</td>
-        <td><a href="/post_accept/?z={{time}}" >Click here to accept visit</a></td>
-        <td><a href="/post_reject/?z={{time}}" >Click here to reject visit</a></td>
-        </tr>
-        <br>
-        {% endfor %}
 
-        <script>
-          function myFunction() {
-            var input, filter, table, tr, td, i, txtValue;
-            input = document.getElementById("myInput");
-            filter = input.value.toUpperCase();
-            table = document.getElementById("myTable");
-            tr = table.getElementsByTagName("tr");
-            for (i = 0; i < tr.length; i++) {
-              td = tr[i].getElementsByTagName("td")[0];
-              if (td) {
-                txtValue = td.textContent || td.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                  tr[i].style.display = "";
-                } else {
-                  tr[i].style.display = "none";
-                }
-              }       
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top ">
+    <div class="container">
+
+      <div class="logo float-left">
+        <h1 class="text-light"><a href="{% url 'index' %}"><span>PRISON</span></a></h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+      </div>
+
+      <nav class="nav-menu float-right d-none d-lg-block">
+        <ul>
+          <li><a href="{% url 'prisoners' %}">Prisoners</a></li>
+          <li><a href="{% url 'guards' %}">Guards</a></li>
+          <li class="active"><a href="{% url 'visitors' %}">Visitor List</a></li>
+          <li><a href="{% url 'index' %}">Sign Out</a></li>
+        </ul>
+      </nav><!-- .nav-menu -->
+
+    </div>
+  </header><!-- End Header -->
+
+  <main id="main">
+
+    <!-- ======= Contact Section ======= -->
+    <section class="breadcrumbs">
+        <div class="container">
+  
+          <div class="d-flex justify-content-between align-items-center">
+            <h2>View Visitors</h2>
+            <ol>
+              <li><a href="{% url 'index' %}">Main Page</a></li>
+              <li>View Visitors</li>
+            </ol>
+          </div>
+  
+        </div>
+      </section><!-- End Contact Section -->
+  
+      <!-- ======= Contact Section ======= -->
+      <section class="contact" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
+        <h3 style="justify-content: center; text-align: center;">Visitor List</h3>
+        <br>
+        <div class="container">
+  
+          <div style="justify-content: center; text-align: center;">
+  
+            <input type="text" cols  class="search" id="myInput" onkeyup="myFunction()" placeholder="Search For Visitor" title="Type in a name">
+            
+            <div >
+            <table id="myTable" style="border:3px solid black;margin-left:auto;margin-right:auto;">
+                <tr class="header">
+                  <th style="width:30%;">Name</th>
+                  <th style="width:20%;">Date</th>
+                  <th style="width:25%;"></th>
+                  <th style="width:25%;"></th>
+                </tr>
+                {% for time,dat,nam in comb_lis%}
+                <tr>
+                  <td><a href="/post_check3/?z={{time}}" >{{nam}}</a></td>
+                  <td>{{dat}}</td>
+                  <td><a href="/post_accept/?z={{time}}" >Click here to accept visit</a></td>
+                  <td><a href="/post_reject/?z={{time}}" >Click here to reject visit</a></td>
+                  </tr>
+                  <br>
+                  {% endfor %}
+            </table>
+            </div>
+  
+          </div>
+  
+        </div>
+      </section><!-- End Contact Section -->
+  
+    <!-- ======= Footer ======= -->
+   <footer id="footer" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
+  
+    <div class="footer-newsletter">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6">
+            <h4></h4>
+            <p></p>
+          </div>
+          <div class="col-lg-6">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Useful Links</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="{% url 'index' %}">Home</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="{% url 'about' %}">About us</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="{% url 'vendor_partner' %}">Visitor Form</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="{% url 'contact' %}">Contact Us</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="{% url 'index' %}">Sign Out</a></li>
+            </ul>
+          </div>
+
+
+          <div class="col-lg-3 col-md-6 footer-contact">
+            <h4>Contact Us</h4>
+            <p>
+              Shavige Malleshwara Hills, 1st Stage, <br>
+              Kumaraswamy Layout, Bengaluru, <br>
+              Karnataka 560078 <br><br>
+              <strong>Phone:</strong> +91 867 5884 9082<br>
+              <strong>Email:</strong> prison@gmail.com<br>
+            </p>
+
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-info">
+            <h3>About</h3>
+            <p>This project is aimed at developing a prison management system that is a collection of registers and reports for the effective management of prisons.
+              </p>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="copyright">
+      </div>
+    </div>
+  </footer>
+  <!-- End Footer -->
+  
+    <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+  
+    <!-- Vendor JS Files -->
+    <script src="{% static 'assets/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/jquery.easing/jquery.easing.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
+    <script src="{% static 'assets/vendor/venobox/venobox.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/waypoints/jquery.waypoints.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/counterup/counterup.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/owl.carousel/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
+    <script>
+      function myFunction() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+          td = tr[i].getElementsByTagName("td")[0];
+          if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+              tr[i].style.display = "";
+            } else {
+              tr[i].style.display = "none";
             }
-          }
-        </script>
-</body>
-</html>
+          }       
+        }
+      }
+    </script>
+    <!-- Template Main JS File -->
+    <script src="{% static 'assets/js/main.js' %}"></script>
+  
+  </body>
+  
+  </html>

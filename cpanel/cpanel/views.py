@@ -10,18 +10,19 @@ from django.http import HttpResponse, HttpResponseRedirect
 import pyrebase
 config={
     
-    'apiKey': "AIzaSyAXWZfV-lOkou1y-sLKTqilJBcMapF_UKE",
-    'authDomain': "prison-management.firebaseapp.com",
-    'databaseURL': "https://prison-management.firebaseio.com",
-    'projectId': "prison-management",
-    'storageBucket': "prison-management.appspot.com",
-    'messagingSenderId': "417789910492",
-    'appId': "1:417789910492:web:07851b56d8d6a3fa190319",
-    'measurementId': "G-9C9RT4Z52C"
+    'apiKey': "AIzaSyBRRbUKVoA5jbgEzkWJn_-0TYsIN7xpibo",
+    'authDomain': "prison-54644.firebaseapp.com",
+    'databaseURL': "https://prison-54644.firebaseio.com",
+    'projectId': "prison-54644",
+    'storageBucket': "prison-54644.appspot.com",
+    'messagingSenderId': "697584156491",
+   ' appId': "1:697584156491:web:a365e543b04d31ff89b2ce",
+    'measurementId': "G-YG2Q5TV4N2"
 }
 firebase=pyrebase.initialize_app(config)
 authe=firebase.auth()
 database=firebase.database()
+atrt=[]
 
 def signIn(request):
     return render(request,"signIn.html")
@@ -29,13 +30,11 @@ def signIn(request):
 def postsign(request):
     email=request.POST.get('email')
     passw=request.POST.get("pass")
-    print(email,passw)
     try:
         user=authe.sign_in_with_email_and_password(email,passw)
     except:
         message="Invalid email or password"
         return render(request, "signIn.html",{"message":message})
-    print("hello")
     session_id=user['idToken']
     request.session['uid']=str(session_id)
     return render(request,"welcome.html")
@@ -46,6 +45,7 @@ def logout(request):
 
 def signUp(request):
     return render(request, "signUp.html")
+
 def postsignUp(request):
     name=request.POST.get('username')
     email=request.POST.get('email')
@@ -268,7 +268,7 @@ def postaddvisitor(request):
     millis=int(time.mktime(time_now.timetuple()))
     name=request.POST.get('vname')
     photo=request.POST.get('img4')
-    gender=request.POST.get('gender')
+    phone=request.POST.get('phone')
     email=request.POST.get('email')
     prisonerID=request.POST.get('id')
     address=request.POST.get('address')
@@ -278,7 +278,7 @@ def postaddvisitor(request):
     data = {
         "Name": name,
         "photo": photo,
-        "gender": gender,
+        "phone": phone,
         "email": email,
         "prisonerID": prisonerID,
         "address": address,
@@ -289,7 +289,7 @@ def postaddvisitor(request):
     }
     database.child('users').child('visitors').child(millis).set(data)
 
-    return render(request,"signIn.html", )
+    return render(request,"index.html", )
 
 
 def viewVisitors(request):
@@ -332,14 +332,14 @@ def post_check3(request):
     name = database.child('users').child('visitors').child(time).child('Name').get().val()
     photo = database.child('users').child('visitors').child(time).child('photo').get().val()
     id = database.child('users').child('visitors').child(time).child('prisonerID').get().val()
-    gender = database.child('users').child('visitors').child(time).child('gender').get().val()
+    phone = database.child('users').child('visitors').child(time).child('phone').get().val()
     email = database.child('users').child('visitors').child(time).child('email').get().val()
     print(email)
     address = database.child('users').child('visitors').child(time).child('address').get().val()
     state = database.child('users').child('visitors').child(time).child('state').get().val()
     pincode = database.child('users').child('visitors').child(time).child('pincode').get().val()
 
-    return render(request,'post_check3.html',{'name':name,'photo':photo,'id':id,'gender':gender,'email':email,'address':address,'state':state,'pincode':pincode})
+    return render(request,'post_check3.html',{'name':name,'photo':photo,'id':id,'phone':phone,'email':email,'address':address,'state':state,'pincode':pincode})
 
 def post_accept(request):
     import datetime
@@ -349,10 +349,10 @@ def post_accept(request):
     a = a['users']
     a = a[0]
     a = a['localId']
+    print("hiii")
     email = database.child('users').child('visitors').child(time).child('email').get().val()
     print(email)
-    database.child('users').child('visitors').child(time).remove()
-    send_mail("Your visit has been accepted.", "Your visit has been accepted. Your visit has been scheduled on 05.06.2020.\nVisiting timings is from 10 AM to 2 PM. \nFollow all rules of protocol",'mahimap7@gmail.com', [email])
+    send_mail("Your visit has been accepted.", "Your visit has been accepted. Your visit has been scheduled on 05.06.2020.\nVisiting timings is from 10 AM to 2 PM. \nFollow all rules of protocol",'nidi.prasad@gmail.com', [email])
     return render(request,"welcome.html")
 
 def post_reject(request):
@@ -366,11 +366,13 @@ def post_reject(request):
     print("hiii")
     email = database.child('users').child('visitors').child(time).child('email').get().val()
     print(email)
-    database.child('users').child('visitors').child(time).remove()
-    send_mail("Your visit has been rejected.", "Your visit has been rejected. Please try again later",'mahimap7@gmail.com', [email])
+    send_mail("Your visit has been rejected.", "Your visit has been rejected. Please try again later",'nidi.prasad@gmail.com', [email])
     return render(request,"welcome.html")
 def index(request):
     return render(request,"index.html")
+
+def welcome(request):
+    return render(request,"welcome.html")
 
 def about(request):
     return render(request,"about.html")
